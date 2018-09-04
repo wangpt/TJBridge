@@ -1,61 +1,84 @@
 //
-//  TJUIWebController.m
+//  TJWKWebController.m
 //  TJBridge
 //
 //  Created by tao on 2018/9/4.
 //  Copyright © 2018年 tao. All rights reserved.
 //
 
-#import "TJUIWebController.h"
+#import "TJWKWebController.h"
 #import "WebViewJavascriptBridge.h"
 
-@interface TJUIWebController ()
+@interface TJWKWebController ()
 @property (nonatomic, strong) WebViewJavascriptBridge *bridge;
 
 @end
 
-@implementation TJUIWebController
+@implementation TJWKWebController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title =  @"UIWebView";
-
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-
-    CGFloat height = ([[UIScreen mainScreen] bounds].size.height);
-    CGFloat width = ([[UIScreen mainScreen] bounds].size.width);//self.view.bounds
-    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, width, height)];
+    self.title = @"WKWebView";
+    WKWebView* webView = [[NSClassFromString(@"WKWebView") alloc] initWithFrame:self.view.bounds];
+    webView.navigationDelegate = self;
+    webView.UIDelegate = self;
+    webView.navigationDelegate = self;
     [self.view addSubview:webView];
+    
     // 加载网页
-    NSString *indexPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *appHtml = [NSString stringWithContentsOfFile:indexPath encoding:NSUTF8StringEncoding error:nil];
-    NSURL *baseUrl = [NSURL fileURLWithPath:indexPath];
-    [webView loadHTMLString:appHtml baseURL:baseUrl];
+    
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+    NSString* appHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+    NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
+    [webView loadHTMLString:appHtml baseURL:baseURL];
+    
     // 开启日志
     [WebViewJavascriptBridge enableLogging];
     _bridge = [WebViewJavascriptBridge bridgeForWebView:webView];
     [_bridge setWebViewDelegate:self];
+    
     [self initBottomUI];
 
-    
     [_bridge registerHandler:@"fromjsExample" handler:^(id data, WVJBResponseCallback responseCallback) {
-        if ([data[@"check"] isEqualToString:@"isuiwebview"]) {
+        if (![data[@"check"] isEqualToString:@"isuiwebview"]) {
             responseCallback(@"success");
         }else{
             responseCallback(@"error");
-
+            
         }
     }];
-    
- 
+
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    NSLog(@"webViewDidStartLoad");
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSLog(@"webViewDidFinishLoad");
+}
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message?:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler();
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
 - (UIButton *)creatBtn:(NSInteger)tag title:(NSString *)title{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.tag = tag;
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:title forState:UIControlStateNormal];
-
+    
     return button;
 }
 - (void)initBottomUI{
@@ -78,21 +101,10 @@
     if (button.tag == 100) {
         [self.bridge callHandler:@"JSAlertEmaple" data:nil];
     }else{
-        [self.bridge callHandler:@"getJSUserInfo" data:@{@"userId":@"tj001"} responseCallback:^(id responseData) {
+        [self.bridge callHandler:@"getJSUserInfo" data:@{@"userId":@"tj002"} responseCallback:^(id responseData) {
             NSLog(@"from js: %@", responseData[@"userName"]);
         }];
     }
-
+    
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
 @end

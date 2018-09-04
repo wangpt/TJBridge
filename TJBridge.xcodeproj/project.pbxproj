@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		2B26137A213E53330089EA18 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 2B261379213E53330089EA18 /* index.html */; };
 		2B26137F213E62980089EA18 /* TJUIWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26137E213E62980089EA18 /* TJUIWebController.m */; };
+		2B261382213E7DD20089EA18 /* TJWKWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B261381213E7DD20089EA18 /* TJWKWebController.m */; };
 		2BFE05E6213D33E900F4CC4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE05E5213D33E900F4CC4E /* AppDelegate.m */; };
 		2BFE05EE213D33EA00F4CC4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFE05ED213D33EA00F4CC4E /* Assets.xcassets */; };
 		2BFE05F1213D33EA00F4CC4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFE05EF213D33EA00F4CC4E /* LaunchScreen.storyboard */; };
 		2BFE05F4213D33EA00F4CC4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE05F3213D33EA00F4CC4E /* main.m */; };
-		2BFE05FF213D376D00F4CC4E /* TJWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE05FE213D376D00F4CC4E /* TJWKWebViewController.m */; };
 		33EBAFBB0164F44F2CA30A24 /* libPods-TJBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C2915F94883EF2663E81BE /* libPods-TJBridge.a */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +21,8 @@
 		2B261379213E53330089EA18 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2B26137D213E62980089EA18 /* TJUIWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUIWebController.h; sourceTree = "<group>"; };
 		2B26137E213E62980089EA18 /* TJUIWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUIWebController.m; sourceTree = "<group>"; };
+		2B261380213E7DD20089EA18 /* TJWKWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJWKWebController.h; sourceTree = "<group>"; };
+		2B261381213E7DD20089EA18 /* TJWKWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJWKWebController.m; sourceTree = "<group>"; };
 		2BFE05E1213D33E900F4CC4E /* TJBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TJBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BFE05E4213D33E900F4CC4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2BFE05E5213D33E900F4CC4E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -28,8 +30,6 @@
 		2BFE05F0213D33EA00F4CC4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BFE05F2213D33EA00F4CC4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BFE05F3213D33EA00F4CC4E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2BFE05FD213D376D00F4CC4E /* TJWKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJWKWebViewController.h; sourceTree = "<group>"; };
-		2BFE05FE213D376D00F4CC4E /* TJWKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJWKWebViewController.m; sourceTree = "<group>"; };
 		43951A1BB0CD81CB76347D83 /* Pods-TJBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJBridge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TJBridge/Pods-TJBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		917F84BE97B957211CA7B334 /* Pods-TJBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJBridge.release.xcconfig"; path = "Pods/Target Support Files/Pods-TJBridge/Pods-TJBridge.release.xcconfig"; sourceTree = "<group>"; };
 		A7C2915F94883EF2663E81BE /* libPods-TJBridge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TJBridge.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,8 +52,8 @@
 			children = (
 				2B26137D213E62980089EA18 /* TJUIWebController.h */,
 				2B26137E213E62980089EA18 /* TJUIWebController.m */,
-				2BFE05FD213D376D00F4CC4E /* TJWKWebViewController.h */,
-				2BFE05FE213D376D00F4CC4E /* TJWKWebViewController.m */,
+				2B261380213E7DD20089EA18 /* TJWKWebController.h */,
+				2B261381213E7DD20089EA18 /* TJWKWebController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BFE05FF213D376D00F4CC4E /* TJWKWebViewController.m in Sources */,
+				2B261382213E7DD20089EA18 /* TJWKWebController.m in Sources */,
 				2B26137F213E62980089EA18 /* TJUIWebController.m in Sources */,
 				2BFE05F4213D33EA00F4CC4E /* main.m in Sources */,
 				2BFE05E6213D33E900F4CC4E /* AppDelegate.m in Sources */,

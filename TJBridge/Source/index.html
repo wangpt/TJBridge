@@ -23,8 +23,16 @@
         <h1>TJBridge Demo</h1>
         <h2>JS调用OC中的方法</h2>
         <button id="btn">fromjsExample</button>
-        <button id="btn1">fromjsExample</button>
         <script>
+<!--            window.alert = function (name) {-->
+<!--                const iframe = document.createElement('IFRAME');-->
+<!--                iframe.style.display = 'none';-->
+<!--                iframe.setAttribute('src', 'data:text/plain,');-->
+<!--                document.documentElement.appendChild(iframe);-->
+<!--                window.frames[0].window.alert(name);-->
+<!--                iframe.parentNode.removeChild(iframe);-->
+<!--            };-->
+        
             /*这段代码是固定的，必须要放到js中*/
             function setupWebViewJavascriptBridge(callback) {
                 if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
@@ -38,24 +46,31 @@
             }
         // 与OC交互的所有JS方法都要在这里注册,才能让OC和JS之间相互调用
         setupWebViewJavascriptBridge(function(bridge) {
+                                     /* JS给OC提供的API*/
                                      bridge.registerHandler('JSAlertEmaple', function() {
                                                             alert("调用JS无参数和返回值")
                                                             })
-                                    
-                                     
                                      bridge.registerHandler('getJSUserInfo', function(data, responseCallback) {
-                                                            console.log("OC中传递过来的参数:", data);
-															var responseData = {}
-															if (data.userId == 'tj001') {
-																responseData.userName = '小明'
-															} else {
-																responseData.userName = '小红'
-															}
+                                                            var responseData = {}
+                                                            if (data.userId == 'tj001') {
+                                                            responseData.userName = '小明'
+                                                            } else {
+                                                            responseData.userName = '小红'
+                                                            }
+                                                            alert("返回用户："+responseData.userName)
                                                             responseCallback(responseData)
                                                             })
-                                      })
-                           
+                                     
+                                     /* OC给JS提供的API*/
+                                     document.getElementById('btn').onclick = function () {
+                                     bridge.callHandler('fromjsExample', {'check': 'isuiwebview'}, function responseCallback(responseData) {
+                                                        alert('OC中返回的参数:'+ responseData)
+                                                        })
+                                     }
+                                     })
+                                     
             </script>
     </body>
 </html>
+
 
