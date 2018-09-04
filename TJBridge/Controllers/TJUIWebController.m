@@ -76,9 +76,8 @@
     if (button.tag == 100) {
         [self.bridge callHandler:@"JSAlertEmaple" data:nil];
 
-
     }else{
-        [self.bridge callHandler:@"getJSUserInfo" data:@{@"userId":@"TJ001"} responseCallback:^(id responseData) {
+        [self.bridge callHandler:@"getJSUserInfo" data:@{@"userId":@"tj002"} responseCallback:^(id responseData) {
             NSLog(@"from js: %@", responseData[@"userName"]);
 
         }];

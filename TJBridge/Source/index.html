@@ -45,7 +45,12 @@
                                      
                                      bridge.registerHandler('getJSUserInfo', function(data, responseCallback) {
                                                             console.log("OC中传递过来的参数:", data);
-                                                            var responseData = { 'userName':'小明!' }
+															var responseData = {}
+															if (data.userId == 'tj001') {
+																responseData.userName = '小明'
+															} else {
+																responseData.userName = '小红'
+															}
                                                             responseCallback(responseData)
                                                             })
                                       })
