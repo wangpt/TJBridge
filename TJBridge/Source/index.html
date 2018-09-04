@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+            <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+                <title></title>
+                </head>
+    <style type="text/css">
+        h1 { color:steelblue; font-size:24px; margin-top:24px; }
+        body { background-color:rgb(255,255,255) }
+        button {
+            border:0;
+            width: 150px;
+            height: 35px;
+            background-color: orangered;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+    </style>
+    
+    <body>
+        <h1>TJBridge Demo</h1>
+        <h2>JS调用OC中的方法</h2>
+        <button id="btn">fromjsExample</button>
+        <button id="btn1">fromjsExample</button>
+        <script>
+            /*这段代码是固定的，必须要放到js中*/
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'https://__bridge_loaded__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            }
+        // 与OC交互的所有JS方法都要在这里注册,才能让OC和JS之间相互调用
+        setupWebViewJavascriptBridge(function(bridge) {
+                                     bridge.registerHandler('JSAlertEmaple', function() {
+                                                            alert("调用JS无参数和返回值")
+                                                            })
+                                    
+                                     
+                                     bridge.registerHandler('getJSUserInfo', function(data, responseCallback) {
+                                                            console.log("OC中传递过来的参数:", data);
+                                                            var responseData = { 'userName':'小明!' }
+                                                            responseCallback(responseData)
+                                                            })
+                                      })
+                           
+            </script>
+    </body>
+</html>
+

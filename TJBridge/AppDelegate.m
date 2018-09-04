@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "TJUIWebViewController.h"
+#import "TJUIWebController.h"
 #import "TJWKWebViewController.h"
 @interface AppDelegate ()
 
@@ -18,18 +18,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    TJUIWebViewController* UIWebViewExampleController = [[TJUIWebViewController alloc] init];
-    UIWebViewExampleController.tabBarItem.title             = @"UIWebView";
-    
+    TJUIWebController * UIWebViewExampleController = [[TJUIWebController alloc]init];
+    UINavigationController *nav_web = [[UINavigationController alloc]initWithRootViewController:UIWebViewExampleController];
+    nav_web.tabBarItem.title             = @"UIWebView";
     // 2. Create the tab footer and add the UIWebView example
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [tabBarController addChildViewController:UIWebViewExampleController];
+    [tabBarController addChildViewController:nav_web];
     
     // 3. Create the  WKWebView example for devices >= iOS 8
     if([WKWebView class]) {
         TJWKWebViewController* WKWebViewExampleController = [[TJWKWebViewController alloc] init];
         WKWebViewExampleController.tabBarItem.title             = @"WKWebView";
+        WKWebViewExampleController.title =  @"WKWebView";
+
         [tabBarController addChildViewController:WKWebViewExampleController];
     }
     
