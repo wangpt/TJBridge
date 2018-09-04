@@ -38,6 +38,7 @@
     _bridge = [WebViewJavascriptBridge bridgeForWebView:webView];
     [_bridge setWebViewDelegate:self];
     [self initBottomUI];
+    //OC注册JS调用
     [_bridge registerHandler:@"fromjsExample" handler:^(id data, WVJBResponseCallback responseCallback) {
         if ([data[@"check"] isEqualToString:@"isuiwebview"]) {
             responseCallback(@"success");
