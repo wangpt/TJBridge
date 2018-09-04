@@ -27,6 +27,7 @@
     CGFloat width = ([[UIScreen mainScreen] bounds].size.width);//self.view.bounds
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, width, height)];
     [self.view addSubview:webView];
+    webView.backgroundColor = [UIColor whiteColor];
     // 加载网页
     NSString *indexPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSString *appHtml = [NSString stringWithContentsOfFile:indexPath encoding:NSUTF8StringEncoding error:nil];
@@ -37,8 +38,6 @@
     _bridge = [WebViewJavascriptBridge bridgeForWebView:webView];
     [_bridge setWebViewDelegate:self];
     [self initBottomUI];
-
-    
     [_bridge registerHandler:@"fromjsExample" handler:^(id data, WVJBResponseCallback responseCallback) {
         if ([data[@"check"] isEqualToString:@"isuiwebview"]) {
             responseCallback(@"success");

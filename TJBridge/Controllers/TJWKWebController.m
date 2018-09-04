@@ -26,9 +26,7 @@
     webView.UIDelegate = self;
     webView.navigationDelegate = self;
     [self.view addSubview:webView];
-    
     // 加载网页
-    
     NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSString* appHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
@@ -38,9 +36,7 @@
     [WebViewJavascriptBridge enableLogging];
     _bridge = [WebViewJavascriptBridge bridgeForWebView:webView];
     [_bridge setWebViewDelegate:self];
-    
     [self initBottomUI];
-
     [_bridge registerHandler:@"fromjsExample" handler:^(id data, WVJBResponseCallback responseCallback) {
         if (![data[@"check"] isEqualToString:@"isuiwebview"]) {
             responseCallback(@"success");
@@ -49,7 +45,7 @@
             
         }
     }];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
